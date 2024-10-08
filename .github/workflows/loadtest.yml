@@ -19,7 +19,8 @@ jobs:
         curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
         chmod +x ./kind
         sudo mv ./kind /usr/local/bin/kind
-        kind create cluster --name ci-cluster
+        # setup 2 nodes kind cluster with ingress-nginx
+        bash ./kind-config.sh
 
     - name: Set up kubectl
       run: |
@@ -29,6 +30,10 @@ jobs:
     - name: Apply Ingress Controller
       run: |
         kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+        kubectl wait --namespace ingress-nginx \
+          --for=condition=ready pod \
+          --selector=app.kubernetes.io/component=controller \
+          --timeout=90s
 
     - name: Deploy http-echo services
       run: |
@@ -51,6 +56,8 @@ jobs:
         sudo apt-get install -y apache2-utils
         ab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt
         ab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt
+        cat foo_result.txt
+        cat bar_result.txt 
 
     - name: Post load testing results to GitHub PR
       uses: marocchino/sticky-pull-request-comment@v2
