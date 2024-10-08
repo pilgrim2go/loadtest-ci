@@ -1,0 +1,59 @@
+name: CI Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Kubernetes cluster with KinD
+      run: |
+        curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+        chmod +x ./kind
+        sudo mv ./kind /usr/local/bin/kind
+        kind create cluster --name ci-cluster --config=kind-config.yaml
+
+    - name: Set up kubectl
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y kubectl
+
+    - name: Apply Ingress Controller
+      run: |
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+
+    - name: Deploy http-echo services
+      run: |
+        kubectl create deployment foo --image=ealen/echo-server --port=80 --replicas=2
+        kubectl create deployment bar --image=ealen/echo-server --port=80 --replicas=2
+        kubectl expose deployment foo --type=ClusterIP --port=80
+        kubectl expose deployment bar --type=ClusterIP --port=80
+
+    - name: Configure Ingress routing
+      run: |
+        kubectl apply -f ingress.yaml
+
+    - name: Ensure deployments are healthy
+      run: |
+        kubectl wait --for=condition=available --timeout=60s deployment/foo
+        kubectl wait --for=condition=available --timeout=60s deployment/bar
+
+    - name: Generate and capture load testing results
+      run: |
+        sudo apt-get install -y apache2-utils
+        ab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt
+        ab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt
+
+    - name: Post load testing results to GitHub PR
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        message: |
+          **Load Testing Results**
+          `Foo`: $(cat foo_result.txt)
+          `Bar`: $(cat bar_result.txt)
