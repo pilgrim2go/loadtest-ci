@@ -20,7 +20,7 @@ jobs:
         chmod +x ./kind
         sudo mv ./kind /usr/local/bin/kind
         # setup 2 nodes kind cluster with ingress-nginx
-        bash ./kind-config.sh
+        bash ./kubernetes/kind-config.sh
 
     - name: Set up kubectl
       run: |
@@ -37,14 +37,11 @@ jobs:
 
     - name: Deploy http-echo services
       run: |
-        kubectl create deployment foo --image=ealen/echo-server --port=80 --replicas=2
-        kubectl create deployment bar --image=ealen/echo-server --port=80 --replicas=2
-        kubectl expose deployment foo --type=ClusterIP --port=80
-        kubectl expose deployment bar --type=ClusterIP --port=80
-
+        kubectl apply -f kubernetes/foo.yaml
+        kubectl apply -f kubernetes/bar.yaml
     - name: Configure Ingress routing
       run: |
-        kubectl apply -f ingress.yaml
+        kubectl apply -f kubernetes/ingress.yaml
 
     - name: Ensure deployments are healthy
       run: |

@@ -1,0 +1,17 @@
+version: '3'
+services:
+  foo:
+    image: hashicorp/http-echo
+    command: ["-text=Hello from foo"]
+    ports:
+      - "8082:5678"
+    deploy:
+      replicas: 1
+
+  bar:
+    image: hashicorp/http-echo
+    command: ["-text=Hello from bar"]
+    ports:
+      - "8083:5678"
+    deploy:
+      replicas: 1
