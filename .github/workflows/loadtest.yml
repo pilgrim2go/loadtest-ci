@@ -78,20 +78,16 @@ jobs:
         }
         parse_ab_result foo_result.txt foo
         parse_ab_result bar_result.txt bar
-
-    - name: Read parsed results into environment variables
-      run: |
-        echo "FOO_RESULTS=$(cat foo_parsed_results.txt)" >> $GITHUB_ENV
-        echo "BAR_RESULTS=$(cat bar_parsed_results.txt)" >> $GITHUB_ENV
-
-    - name: Post load testing results to GitHub PR
-      uses: marocchino/sticky-pull-request-comment@v2
+    - name: Post comment on PR
+      uses: actions/github-script@v3
       with:
-        github_token: ${{ secrets.GH_TOKEN }}
-        message: |
-          **Load Testing Results**
-          **Foo**:
-          ${{ env.FOO_RESULTS }}
-
-          **Bar**:
-          ${{ env.BAR_RESULTS }}
+        github-token: ${{ secrets.GH_TOKEN }}
+        script: |
+          FOO_RESULTS=$(cat foo_parsed_results.txt)
+          BAR_RESULTS=$(cat bar_parsed_results.txt)"
+          github.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: `### Load Testing Results\n\n**foo**:\n${FOO_RESULTS}\n\n**bar**:\n${BAR_RESULTS}`
+          });          
