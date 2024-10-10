@@ -69,12 +69,12 @@ jobs:
                 failed_requests_percentage=0
             fi
             echo "${prefix}_requests_per_second=$requests_per_second" >> $GITHUB_ENV
-            echo "${prefix}_time_per_request=$time_per_request" >> $GITHUB_ENV
+            echo "${prefix}_time_per_request=${time_per_request}ms" >> $GITHUB_ENV
             echo "${prefix}_failed_requests=$failed_requests" >> $GITHUB_ENV
-            echo "${prefix}_failed_requests_percentage=$failed_requests_percentage" >> $GITHUB_ENV
-            echo "${prefix}_p90=$p90" >> $GITHUB_ENV
-            echo "${prefix}_p95=$p95" >> $GITHUB_ENV
-            echo "${prefix}_p99=$p99" >> $GITHUB_ENV
+            echo "${prefix}_failed_requests_percentage=${failed_requests_percentage}%" >> $GITHUB_ENV
+            echo "${prefix}_p90=${p90}ms" >> $GITHUB_ENV
+            echo "${prefix}_p95=${p95}ms" >> $GITHUB_ENV
+            echo "${prefix}_p99=${p99}ms" >> $GITHUB_ENV
         }
         parse_ab_result foo_result.txt foo
         parse_ab_result bar_result.txt bar
