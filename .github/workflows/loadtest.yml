@@ -79,6 +79,11 @@ jobs:
         parse_ab_result foo_result.txt foo
         parse_ab_result bar_result.txt bar
 
+    - name: Read parsed results into environment variables
+      run: |
+        echo "FOO_RESULTS=$(cat foo_parsed_results.txt)" >> $GITHUB_ENV
+        echo "BAR_RESULTS=$(cat bar_parsed_results.txt)" >> $GITHUB_ENV
+
     - name: Post load testing results to GitHub PR
       uses: marocchino/sticky-pull-request-comment@v2
       with:
@@ -86,7 +91,7 @@ jobs:
         message: |
           **Load Testing Results**
           **Foo**:
-          $(cat foo_parsed_results.txt)
+          ${{ env.FOO_RESULTS }}
 
           **Bar**:
-          $(cat bar_parsed_results.txt)
+          ${{ env.BAR_RESULTS }}
