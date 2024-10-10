@@ -1,0 +1,28 @@
+﻿2024-10-10T04:56:27.1381625Z ##[group]Run kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+2024-10-10T04:56:27.1383082Z [36;1mkubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml[0m
+2024-10-10T04:56:27.1383997Z [36;1mkubectl wait --namespace ingress-nginx \[0m
+2024-10-10T04:56:27.1384489Z [36;1m  --for=condition=ready pod \[0m
+2024-10-10T04:56:27.1385043Z [36;1m  --selector=app.kubernetes.io/component=controller \[0m
+2024-10-10T04:56:27.1385575Z [36;1m  --timeout=90s[0m
+2024-10-10T04:56:27.1443700Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:27.1444070Z ##[endgroup]
+2024-10-10T04:56:27.8367096Z namespace/ingress-nginx created
+2024-10-10T04:56:27.8418778Z serviceaccount/ingress-nginx created
+2024-10-10T04:56:27.8462127Z serviceaccount/ingress-nginx-admission created
+2024-10-10T04:56:27.8513348Z role.rbac.authorization.k8s.io/ingress-nginx created
+2024-10-10T04:56:27.8562680Z role.rbac.authorization.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:27.8603261Z clusterrole.rbac.authorization.k8s.io/ingress-nginx created
+2024-10-10T04:56:27.8643166Z clusterrole.rbac.authorization.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:27.8696427Z rolebinding.rbac.authorization.k8s.io/ingress-nginx created
+2024-10-10T04:56:27.8743214Z rolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:27.8787157Z clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx created
+2024-10-10T04:56:27.8831796Z clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:27.8876606Z configmap/ingress-nginx-controller created
+2024-10-10T04:56:27.8981073Z service/ingress-nginx-controller created
+2024-10-10T04:56:27.9064412Z service/ingress-nginx-controller-admission created
+2024-10-10T04:56:27.9140716Z deployment.apps/ingress-nginx-controller created
+2024-10-10T04:56:27.9229963Z job.batch/ingress-nginx-admission-create created
+2024-10-10T04:56:27.9413173Z job.batch/ingress-nginx-admission-patch created
+2024-10-10T04:56:27.9480003Z ingressclass.networking.k8s.io/nginx created
+2024-10-10T04:56:27.9569456Z validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:55.7505109Z pod/ingress-nginx-controller-6b8cfc8d84-vsxmq condition met

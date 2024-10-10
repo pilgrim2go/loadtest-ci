@@ -1,0 +1,38 @@
+﻿2024-10-10T04:55:39.4201293Z ##[group]Run curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+2024-10-10T04:55:39.4202753Z [36;1mcurl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64[0m
+2024-10-10T04:55:39.4203614Z [36;1mchmod +x ./kind[0m
+2024-10-10T04:55:39.4204119Z [36;1msudo mv ./kind /usr/local/bin/kind[0m
+2024-10-10T04:55:39.4204894Z [36;1m# setup 2 nodes kind cluster with ingress-nginx[0m
+2024-10-10T04:55:39.4205546Z [36;1mbash ./kubernetes/kind-config.sh[0m
+2024-10-10T04:55:39.4294042Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:55:39.4294588Z ##[endgroup]
+2024-10-10T04:55:39.4507382Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2024-10-10T04:55:39.4509188Z                                  Dload  Upload   Total   Spent    Left  Speed
+2024-10-10T04:55:39.4510063Z 
+2024-10-10T04:55:39.5598438Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2024-10-10T04:55:39.5599947Z 100    97  100    97    0     0    886      0 --:--:-- --:--:-- --:--:--   889
+2024-10-10T04:55:39.6631826Z 
+2024-10-10T04:55:39.6632734Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2024-10-10T04:55:39.7849491Z 
+2024-10-10T04:55:39.7851448Z 100 9697k  100 9697k    0     0  28.3M      0 --:--:-- --:--:-- --:--:-- 28.3M
+2024-10-10T04:55:40.0601843Z Creating cluster "kind" ...
+2024-10-10T04:55:40.0603691Z  • Ensuring node image (kindest/node:v1.31.0) 🖼  ...
+2024-10-10T04:55:49.6256175Z  ✓ Ensuring node image (kindest/node:v1.31.0) 🖼
+2024-10-10T04:55:49.6257504Z  • Preparing nodes 📦 📦 📦   ...
+2024-10-10T04:55:54.6152088Z  ✓ Preparing nodes 📦 📦 📦 
+2024-10-10T04:55:54.6715959Z  • Writing configuration 📜  ...
+2024-10-10T04:55:55.0076644Z  ✓ Writing configuration 📜
+2024-10-10T04:55:55.0078180Z  • Starting control-plane 🕹️  ...
+2024-10-10T04:56:05.9822387Z  ✓ Starting control-plane 🕹️
+2024-10-10T04:56:05.9823464Z  • Installing CNI 🔌  ...
+2024-10-10T04:56:06.3523811Z  ✓ Installing CNI 🔌
+2024-10-10T04:56:06.3524914Z  • Installing StorageClass 💾  ...
+2024-10-10T04:56:06.6899560Z  ✓ Installing StorageClass 💾
+2024-10-10T04:56:06.7727657Z  • Joining worker nodes 🚜  ...
+2024-10-10T04:56:19.1574228Z  ✓ Joining worker nodes 🚜
+2024-10-10T04:56:19.3724135Z Set kubectl context to "kind-kind"
+2024-10-10T04:56:19.3725040Z You can now use your cluster with:
+2024-10-10T04:56:19.3727964Z 
+2024-10-10T04:56:19.3728884Z kubectl cluster-info --context kind-kind
+2024-10-10T04:56:19.3729416Z 
+2024-10-10T04:56:19.3730320Z Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂

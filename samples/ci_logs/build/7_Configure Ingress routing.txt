@@ -1,0 +1,5 @@
+﻿2024-10-10T04:56:56.0430658Z ##[group]Run kubectl apply -f kubernetes/ingress.yaml
+2024-10-10T04:56:56.0431836Z [36;1mkubectl apply -f kubernetes/ingress.yaml[0m
+2024-10-10T04:56:56.0514792Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:56.0515433Z ##[endgroup]
+2024-10-10T04:56:56.1473072Z ingress.networking.k8s.io/loadtest-ingress created

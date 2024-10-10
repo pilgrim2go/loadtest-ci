@@ -1,0 +1,109 @@
+﻿2024-10-10T04:55:38.8645743Z ##[group]Run actions/checkout@v2
+2024-10-10T04:55:38.8646527Z with:
+2024-10-10T04:55:38.8646929Z   repository: pilgrim2go/loadtest-ci
+2024-10-10T04:55:38.8647724Z   token: ***
+2024-10-10T04:55:38.8648227Z   ssh-strict: true
+2024-10-10T04:55:38.8648669Z   persist-credentials: true
+2024-10-10T04:55:38.8649096Z   clean: true
+2024-10-10T04:55:38.8649569Z   fetch-depth: 1
+2024-10-10T04:55:38.8649963Z   lfs: false
+2024-10-10T04:55:38.8650325Z   submodules: false
+2024-10-10T04:55:38.8650818Z   set-safe-directory: true
+2024-10-10T04:55:38.8651295Z ##[endgroup]
+2024-10-10T04:55:39.0515802Z Syncing repository: pilgrim2go/loadtest-ci
+2024-10-10T04:55:39.0518075Z ##[group]Getting Git version info
+2024-10-10T04:55:39.0518991Z Working directory is '/home/runner/work/loadtest-ci/loadtest-ci'
+2024-10-10T04:55:39.0520223Z [command]/usr/bin/git version
+2024-10-10T04:55:39.0520713Z git version 2.46.2
+2024-10-10T04:55:39.0538845Z ##[endgroup]
+2024-10-10T04:55:39.0562149Z Temporarily overriding HOME='/home/runner/work/_temp/e7d31b9f-284a-4476-86dc-478ec429f244' before making global git config changes
+2024-10-10T04:55:39.0564997Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-10T04:55:39.0567242Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/loadtest-ci/loadtest-ci
+2024-10-10T04:55:39.0598435Z Deleting the contents of '/home/runner/work/loadtest-ci/loadtest-ci'
+2024-10-10T04:55:39.0602355Z ##[group]Initializing the repository
+2024-10-10T04:55:39.0605783Z [command]/usr/bin/git init /home/runner/work/loadtest-ci/loadtest-ci
+2024-10-10T04:55:39.0671117Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-10-10T04:55:39.0672869Z hint: is subject to change. To configure the initial branch name to use in all
+2024-10-10T04:55:39.0674581Z hint: of your new repositories, which will suppress this warning, call:
+2024-10-10T04:55:39.0675812Z hint:
+2024-10-10T04:55:39.0676873Z hint: 	git config --global init.defaultBranch <name>
+2024-10-10T04:55:39.0677792Z hint:
+2024-10-10T04:55:39.0678797Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-10-10T04:55:39.0680343Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-10-10T04:55:39.0681123Z hint:
+2024-10-10T04:55:39.0681489Z hint: 	git branch -m <name>
+2024-10-10T04:55:39.0682441Z Initialized empty Git repository in /home/runner/work/loadtest-ci/loadtest-ci/.git/
+2024-10-10T04:55:39.0687920Z [command]/usr/bin/git remote add origin https://github.com/pilgrim2go/loadtest-ci
+2024-10-10T04:55:39.0721215Z ##[endgroup]
+2024-10-10T04:55:39.0722509Z ##[group]Disabling automatic garbage collection
+2024-10-10T04:55:39.0725073Z [command]/usr/bin/git config --local gc.auto 0
+2024-10-10T04:55:39.0757914Z ##[endgroup]
+2024-10-10T04:55:39.0759331Z ##[group]Setting up auth
+2024-10-10T04:55:39.0765389Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-10T04:55:39.0800912Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-10T04:55:39.1122241Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-10T04:55:39.1153629Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-10T04:55:39.1407002Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-10-10T04:55:39.1446211Z ##[endgroup]
+2024-10-10T04:55:39.1447652Z ##[group]Fetching the repository
+2024-10-10T04:55:39.1455706Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +fc268b007b4e1357fa057131c0708b0cbcaa28fd:refs/remotes/pull/1/merge
+2024-10-10T04:55:39.3595547Z remote: Enumerating objects: 16, done.        
+2024-10-10T04:55:39.3597675Z remote: Counting objects:   6% (1/16)        
+2024-10-10T04:55:39.3599020Z remote: Counting objects:  12% (2/16)        
+2024-10-10T04:55:39.3600201Z remote: Counting objects:  18% (3/16)        
+2024-10-10T04:55:39.3601224Z remote: Counting objects:  25% (4/16)        
+2024-10-10T04:55:39.3602326Z remote: Counting objects:  31% (5/16)        
+2024-10-10T04:55:39.3603672Z remote: Counting objects:  37% (6/16)        
+2024-10-10T04:55:39.3604801Z remote: Counting objects:  43% (7/16)        
+2024-10-10T04:55:39.3605894Z remote: Counting objects:  50% (8/16)        
+2024-10-10T04:55:39.3606673Z remote: Counting objects:  56% (9/16)        
+2024-10-10T04:55:39.3607442Z remote: Counting objects:  62% (10/16)        
+2024-10-10T04:55:39.3608421Z remote: Counting objects:  68% (11/16)        
+2024-10-10T04:55:39.3609161Z remote: Counting objects:  75% (12/16)        
+2024-10-10T04:55:39.3609933Z remote: Counting objects:  81% (13/16)        
+2024-10-10T04:55:39.3610789Z remote: Counting objects:  87% (14/16)        
+2024-10-10T04:55:39.3611512Z remote: Counting objects:  93% (15/16)        
+2024-10-10T04:55:39.3612265Z remote: Counting objects: 100% (16/16)        
+2024-10-10T04:55:39.3613384Z remote: Counting objects: 100% (16/16), done.        
+2024-10-10T04:55:39.3614228Z remote: Compressing objects:   8% (1/12)        
+2024-10-10T04:55:39.3615154Z remote: Compressing objects:  16% (2/12)        
+2024-10-10T04:55:39.3615865Z remote: Compressing objects:  25% (3/12)        
+2024-10-10T04:55:39.3616622Z remote: Compressing objects:  33% (4/12)        
+2024-10-10T04:55:39.3617451Z remote: Compressing objects:  41% (5/12)        
+2024-10-10T04:55:39.3618204Z remote: Compressing objects:  50% (6/12)        
+2024-10-10T04:55:39.3618913Z remote: Compressing objects:  58% (7/12)        
+2024-10-10T04:55:39.3619730Z remote: Compressing objects:  66% (8/12)        
+2024-10-10T04:55:39.3620475Z remote: Compressing objects:  75% (9/12)        
+2024-10-10T04:55:39.3621231Z remote: Compressing objects:  83% (10/12)        
+2024-10-10T04:55:39.3622037Z remote: Compressing objects:  91% (11/12)        
+2024-10-10T04:55:39.3622806Z remote: Compressing objects: 100% (12/12)        
+2024-10-10T04:55:39.3623606Z remote: Compressing objects: 100% (12/12), done.        
+2024-10-10T04:55:39.3624898Z remote: Total 16 (delta 2), reused 12 (delta 2), pack-reused 0 (from 0)        
+2024-10-10T04:55:39.3714149Z From https://github.com/pilgrim2go/loadtest-ci
+2024-10-10T04:55:39.3716275Z  * [new ref]         fc268b007b4e1357fa057131c0708b0cbcaa28fd -> pull/1/merge
+2024-10-10T04:55:39.3742192Z ##[endgroup]
+2024-10-10T04:55:39.3743470Z ##[group]Determining the checkout info
+2024-10-10T04:55:39.3745085Z ##[endgroup]
+2024-10-10T04:55:39.3746294Z ##[group]Checking out the ref
+2024-10-10T04:55:39.3750166Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+2024-10-10T04:55:39.3792259Z Note: switching to 'refs/remotes/pull/1/merge'.
+2024-10-10T04:55:39.3792996Z 
+2024-10-10T04:55:39.3793816Z You are in 'detached HEAD' state. You can look around, make experimental
+2024-10-10T04:55:39.3795094Z changes and commit them, and you can discard any commits you make in this
+2024-10-10T04:55:39.3796792Z state without impacting any branches by switching back to a branch.
+2024-10-10T04:55:39.3798007Z 
+2024-10-10T04:55:39.3799113Z If you want to create a new branch to retain commits you create, you may
+2024-10-10T04:55:39.3801201Z do so (now or later) by using -c with the switch command. Example:
+2024-10-10T04:55:39.3802178Z 
+2024-10-10T04:55:39.3802582Z   git switch -c <new-branch-name>
+2024-10-10T04:55:39.3803363Z 
+2024-10-10T04:55:39.3803656Z Or undo this operation with:
+2024-10-10T04:55:39.3804155Z 
+2024-10-10T04:55:39.3804437Z   git switch -
+2024-10-10T04:55:39.3804796Z 
+2024-10-10T04:55:39.3805556Z Turn off this advice by setting config variable advice.detachedHead to false
+2024-10-10T04:55:39.3806707Z 
+2024-10-10T04:55:39.3807785Z HEAD is now at fc268b0 Merge 47e2c680bd008c03a63e6e3d23dab59d49cb4700 into 50848121ea0c2b63d70ae60ee872a2023a780b22
+2024-10-10T04:55:39.3810277Z ##[endgroup]
+2024-10-10T04:55:39.3839014Z [command]/usr/bin/git log -1 --format='%H'
+2024-10-10T04:55:39.3865591Z 'fc268b007b4e1357fa057131c0708b0cbcaa28fd'
