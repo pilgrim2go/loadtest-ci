@@ -55,30 +55,39 @@ jobs:
         cat bar_result.txt
         parse_ab_result() {
             local result_file=$1
-            local prefix=$2
+
+            # Extract useful metrics from the ApacheBench result
             requests_per_second=$(grep "Requests per second" "$result_file" | awk '{print $4}')
-            time_per_request=$(grep "Time per request" "$result_file" | grep "\(mean\)" | awk '{print $4}')
+            time_per_request=$(grep "Time per request" "$result_file" | grep "(mean)" | awk '{print $4}')
             failed_requests=$(grep "Failed requests" "$result_file" | awk '{print $3}')
             total_requests=$(grep "Complete requests" "$result_file" | awk '{print $3}')
+
+            # Extracting percentiles
             p90=$(grep -A 1 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')
             p95=$(grep -A 2 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')
             p99=$(grep -A 3 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')
+
+            # Calculate the percentage of failed requests
             if [ "$total_requests" -gt 0 ]; then
                 failed_requests_percentage=$(echo "scale=2; ($failed_requests / $total_requests) * 100" | bc)
             else
                 failed_requests_percentage=0
             fi
-            echo "${prefix}_requests_per_second=${requests_per_second}" >> $GITHUB_ENV
-            echo "${prefix}_time_per_request=${time_per_request}" >> $GITHUB_ENV
-            echo "${prefix}_failed_requests=${failed_requests}" >> $GITHUB_ENV
-            echo "${prefix}_failed_requests_percentage=${failed_requests_percentage}" >> $GITHUB_ENV
-            echo "${prefix}_p90=${p90}" >> $GITHUB_ENV
-            echo "${prefix}_p95=${p95}" >> $GITHUB_ENV
-            echo "${prefix}_p99=${p99}" >> $GITHUB_ENV
-        }
-        parse_ab_result foo_result.txt foo
-        parse_ab_result bar_result.txt bar
 
+            # Print the results
+            echo "Requests per second: $requests_per_second"
+            echo "Time per request (mean): $time_per_request ms"
+            echo "Failed requests: $failed_requests ($failed_requests_percentage%)"
+            echo "Percentiles:"
+            echo "  p90: $p90 ms"
+            echo "  p95: $p95 ms"
+            echo "  p99: $p99 ms"
+        }
+
+        foo_result=$(parse_ab_result foo_result.txt)
+        echo "foo_result=${foo_result}" >> $GITHUB_ENV
+        bar_result=$(parse_ab_result bar_result.txt)
+        echo "bar_result=${bar_result}" >> $GITHUB_ENV
     - name: Post load testing results to GitHub PR
       uses: marocchino/sticky-pull-request-comment@v2
       with:
@@ -86,21 +95,9 @@ jobs:
         message: |
           **Load Testing Results**
           **Foo**:
-          - Requests per second: ${{ env.foo_requests_per_second }}
-          - Time per request (mean): ${{ env.foo_time_per_request }} ms
-          - Failed requests: ${{ env.foo_failed_requests }} ({{ env.foo_failed_requests_percentage }}%)
-          - Percentiles:
-            - p90: ${{ env.foo_p90 }} ms
-            - p95: ${{ env.foo_p95 }} ms
-            - p99: ${{ env.foo_p99 }} ms
+          ${{ env.foo_result }}
 
           **Bar**:
-          - Requests per second: ${{ env.bar_requests_per_second }}
-          - Time per request (mean): ${{ env.bar_time_per_request }} ms
-          - Failed requests: ${{ env.bar_failed_requests }} ({{ env.bar_failed_requests_percentage }}%)
-          - Percentiles:
-            - p90: ${{ env.bar_p90 }} ms
-            - p95: ${{ env.bar_p95 }} ms
-            - p99: ${{ env.bar_p99 }} ms
+          ${{ env.bar_result }}
 
             
