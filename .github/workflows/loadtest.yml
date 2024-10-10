@@ -50,12 +50,6 @@ jobs:
         sudo apt-get install -y apache2-utils
         ab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt
         ab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt
-        cat foo_result.txt
-        cat bar_result.txt 
-
-    - name: Parse results
-      id: parse_results
-      run: |
         echo "foo_results=$(cat foo_result.txt)" >> $GITHUB_ENV
         echo "bar_results=$(cat bar_result.txt)" >> $GITHUB_ENV
 
