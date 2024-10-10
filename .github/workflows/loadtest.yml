@@ -82,7 +82,7 @@ jobs:
     - name: Post load testing results to GitHub PR
       uses: marocchino/sticky-pull-request-comment@v2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GH_TOKEN }}
         message: |
           **Load Testing Results**
           **Foo**:
