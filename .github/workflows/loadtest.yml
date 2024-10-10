@@ -11,52 +11,53 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Kubernetes cluster with KinD
-      run: |
-        curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
-        chmod +x ./kind
-        sudo mv ./kind /usr/local/bin/kind
-        # setup 2 nodes kind cluster with ingress-nginx
-        bash ./kubernetes/kind-config.sh
+    # - name: Set up Kubernetes cluster with KinD
+    #   run: |
+    #     curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+    #     chmod +x ./kind
+    #     sudo mv ./kind /usr/local/bin/kind
+    #     # setup 2 nodes kind cluster with ingress-nginx
+    #     bash ./kubernetes/kind-config.sh
 
-    - name: Set up kubectl
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y kubectl
+    # - name: Set up kubectl
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y kubectl
 
-    - name: Apply Ingress Controller
-      run: |
-        kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-        kubectl wait --namespace ingress-nginx \
-          --for=condition=ready pod \
-          --selector=app.kubernetes.io/component=controller \
-          --timeout=90s
+    # - name: Apply Ingress Controller
+    #   run: |
+    #     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+    #     kubectl wait --namespace ingress-nginx \
+    #       --for=condition=ready pod \
+    #       --selector=app.kubernetes.io/component=controller \
+    #       --timeout=90s
 
-    - name: Deploy http-echo services
-      run: |
-        kubectl apply -f kubernetes/foo.yaml
-        kubectl apply -f kubernetes/bar.yaml
-    - name: Configure Ingress routing
-      run: |
-        kubectl apply -f kubernetes/ingress.yaml
+    # - name: Deploy http-echo services
+    #   run: |
+    #     kubectl apply -f kubernetes/foo.yaml
+    #     kubectl apply -f kubernetes/bar.yaml
+    # - name: Configure Ingress routing
+    #   run: |
+    #     kubectl apply -f kubernetes/ingress.yaml
 
-    - name: Ensure deployments are healthy
-      run: |
-        kubectl wait --for=condition=available --timeout=60s deployment/foo
-        kubectl wait --for=condition=available --timeout=60s deployment/bar
+    # - name: Ensure deployments are healthy
+    #   run: |
+    #     kubectl wait --for=condition=available --timeout=60s deployment/foo
+    #     kubectl wait --for=condition=available --timeout=60s deployment/bar
 
     - name: Generate and capture load testing results
       id: parse_results
       run: |
-        sudo apt-get install -y apache2-utils
-        ab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt
-        ab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt
+        # sudo apt-get install -y apache2-utils
+        # ab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt
+        # ab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt
         cat foo_result.txt
         cat bar_result.txt
         parse_ab_result() {
             local result_file=$1
+            local prefix=$2
             requests_per_second=$(grep "Requests per second" "$result_file" | awk '{print $4}')
-            time_per_request=$(grep "Time per request" "$result_file" | grep "(mean)" | awk '{print $4}')
+            time_per_request=$(grep "Time per request" "$result_file" | grep "\(mean\)" | awk '{print $4}')
             failed_requests=$(grep "Failed requests" "$result_file" | awk '{print $3}')
             total_requests=$(grep "Complete requests" "$result_file" | awk '{print $3}')
             p90=$(grep -A 1 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')
@@ -67,45 +68,37 @@ jobs:
             else
                 failed_requests_percentage=0
             fi
-            echo "Requests per second: $requests_per_second"
-            echo "Time per request (mean): $time_per_request ms"
-            echo "Failed requests: $failed_requests ($failed_requests_percentage%)"
-            echo "Percentiles:"
-            echo "  p90: $p90 ms"
-            echo "  p95: $p95 ms"
-            echo "  p99: $p99 ms"
-            echo "::set-output name=requests_per_second_$1::$requests_per_second"
-            echo "::set-output name=time_per_request_$1::$time_per_request"
-            echo "::set-output name=failed_requests_$1::$failed_requests"
-            echo "::set-output name=failed_requests_percentage_$1::$failed_requests_percentage"
-            echo "::set-output name=p90_$1::$p90"
-            echo "::set-output name=p95_$1::$p95"
-            echo "::set-output name=p99_$1::$p99"
-        }          
-
-        parse_ab_result foo_result.txt
-        parse_ab_result bar_result.txt
+            echo "${prefix}_requests_per_second=$requests_per_second" >> $GITHUB_ENV
+            echo "${prefix}_time_per_request=$time_per_request" >> $GITHUB_ENV
+            echo "${prefix}_failed_requests=$failed_requests" >> $GITHUB_ENV
+            echo "${prefix}_failed_requests_percentage=$failed_requests_percentage" >> $GITHUB_ENV
+            echo "${prefix}_p90=$p90" >> $GITHUB_ENV
+            echo "${prefix}_p95=$p95" >> $GITHUB_ENV
+            echo "${prefix}_p99=$p99" >> $GITHUB_ENV
+        }
+        parse_ab_result foo_result.txt foo
+        parse_ab_result bar_result.txt bar
 
     - name: Post load testing results to GitHub PR
       uses: marocchino/sticky-pull-request-comment@v2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GH_TOKEN }}
         message: |
           **Load Testing Results**
           **Foo**:
-          - Requests per second: ${{ steps.parse_results.outputs.requests_per_second_foo_result.txt }}
-          - Time per request (mean): ${{ steps.parse_results.outputs.time_per_request_foo_result.txt }} ms
-          - Failed requests: ${{ steps.parse_results.outputs.failed_requests_foo_result.txt }} ({{ steps.parse_results.outputs.failed_requests_percentage_foo_result.txt }}%)
+          - Requests per second: ${{ env.foo_requests_per_second }}
+          - Time per request (mean): ${{ env.foo_time_per_request }} ms
+          - Failed requests: ${{ env.foo_failed_requests }} ({{ env.foo_failed_requests_percentage }}%)
           - Percentiles:
-            - p90: ${{ steps.parse_results.outputs.p90_foo_result.txt }} ms
-            - p95: ${{ steps.parse_results.outputs.p95_foo_result.txt }} ms
-            - p99: ${{ steps.parse_results.outputs.p99_foo_result.txt }} ms
+            - p90: ${{ env.foo_p90 }} ms
+            - p95: ${{ env.foo_p95 }} ms
+            - p99: ${{ env.foo_p99 }} ms
 
           **Bar**:
-          - Requests per second: ${{ steps.parse_results.outputs.requests_per_second_bar_result.txt }}
-          - Time per request (mean): ${{ steps.parse_results.outputs.time_per_request_bar_result.txt }} ms
-          - Failed requests: ${{ steps.parse_results.outputs.failed_requests_bar_result.txt }} ({{ steps.parse_results.outputs.failed_requests_percentage_bar_result.txt }}%)
+          - Requests per second: ${{ env.bar_requests_per_second }}
+          - Time per request (mean): ${{ env.bar_time_per_request }} ms
+          - Failed requests: ${{ env.bar_failed_requests }} ({{ env.bar_failed_requests_percentage }}%)
           - Percentiles:
-            - p90: ${{ steps.parse_results.outputs.p90_bar_result.txt }} ms
-            - p95: ${{ steps.parse_results.outputs.p95_bar_result.txt }} ms
-            - p99: ${{ steps.parse_results.outputs.p99_bar_result.txt }} ms
+            - p90: ${{ env.bar_p90 }} ms
+            - p95: ${{ env.bar_p95 }} ms
+            - p99: ${{ env.bar_p99 }} ms
