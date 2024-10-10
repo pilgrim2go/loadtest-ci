@@ -83,11 +83,13 @@ jobs:
       with:
         github-token: ${{ secrets.GH_TOKEN }}
         script: |
-          FOO_RESULTS=$(cat foo_parsed_results.txt)
-          BAR_RESULTS=$(cat bar_parsed_results.txt)"
+          const fs = require('fs');
+          const fooResults = fs.readFileSync('foo_parsed_results.txt', 'utf8');
+          const barResults = fs.readFileSync('bar_parsed_results.txt', 'utf8');
           github.issues.createComment({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
-            body: `### Load Testing Results\n\n**foo**:\n${FOO_RESULTS}\n\n**bar**:\n${BAR_RESULTS}`
-          });          
+            body: `### Load Testing Results\n\n**Foo**:\n${fooResults}\n\n**Bar**:\n${barResults}`
+          });
+      
