@@ -11,48 +11,51 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    # - name: Set up Kubernetes cluster with KinD
-    #   run: |
-    #     curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
-    #     chmod +x ./kind
-    #     sudo mv ./kind /usr/local/bin/kind
-    #     # setup 2 nodes kind cluster with ingress-nginx
-    #     bash ./kubernetes/kind-config.sh
+    - name: Set up Kubernetes cluster with KinD
+      run: |
+        curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+        chmod +x ./kind
+        sudo mv ./kind /usr/local/bin/kind
+        # setup 2 nodes kind cluster with ingress-nginx
+        bash ./kubernetes/kind-config.sh
 
-    # - name: Set up kubectl
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install -y kubectl
+    - name: Set up kubectl
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y kubectl
 
-    # - name: Apply Ingress Controller
-    #   run: |
-    #     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-    #     kubectl wait --namespace ingress-nginx \
-    #       --for=condition=ready pod \
-    #       --selector=app.kubernetes.io/component=controller \
-    #       --timeout=90s
+    - name: Apply Ingress Controller
+      run: |
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+        kubectl wait --namespace ingress-nginx \
+          --for=condition=ready pod \
+          --selector=app.kubernetes.io/component=controller \
+          --timeout=90s
 
-    # - name: Deploy http-echo services
-    #   run: |
-    #     kubectl apply -f kubernetes/foo.yaml
-    #     kubectl apply -f kubernetes/bar.yaml
-    # - name: Configure Ingress routing
-    #   run: |
-    #     kubectl apply -f kubernetes/ingress.yaml
+    - name: Deploy http-echo services
+      run: |
+        kubectl apply -f kubernetes/foo.yaml
+        kubectl apply -f kubernetes/bar.yaml
+    - name: Configure Ingress routing
+      run: |
+        kubectl apply -f kubernetes/ingress.yaml
 
-    # - name: Ensure deployments are healthy
-    #   run: |
-    #     kubectl wait --for=condition=available --timeout=60s deployment/foo
-    #     kubectl wait --for=condition=available --timeout=60s deployment/bar
+    - name: Ensure deployments are healthy
+      run: |
+        kubectl wait --for=condition=available --timeout=60s deployment/foo
+        kubectl wait --for=condition=available --timeout=60s deployment/bar
 
     - name: Generate and capture load testing results
       id: parse_results
       run: |
-        # sudo apt-get install -y apache2-utils
-        # ab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt
-        # ab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt
+        sudo apt-get install -y apache2-utils
+        # todo move to github env to allow multiple scenarios
+        ab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt
+        ab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt
+        # cat here for debug only
         cat foo_result.txt
         cat bar_result.txt
+        # parse result to get desired target indicators
         parse_ab_result() {
             local result_file=$1
             local prefix=$2
