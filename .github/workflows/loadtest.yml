@@ -55,52 +55,38 @@ jobs:
         cat bar_result.txt
         parse_ab_result() {
             local result_file=$1
-
-            # Extract useful metrics from the ApacheBench result
+            local prefix=$2
             requests_per_second=$(grep "Requests per second" "$result_file" | awk '{print $4}')
-            time_per_request=$(grep "Time per request" "$result_file" | grep "(mean)" | awk '{print $4}')
+            time_per_request=$(grep "Time per request" "$result_file" | grep "\(mean\)" | awk '{print $4}')
             failed_requests=$(grep "Failed requests" "$result_file" | awk '{print $3}')
             total_requests=$(grep "Complete requests" "$result_file" | awk '{print $3}')
-
-            # Extracting percentiles
             p90=$(grep -A 1 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')
             p95=$(grep -A 2 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')
             p99=$(grep -A 3 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')
-
-            # Calculate the percentage of failed requests
             if [ "$total_requests" -gt 0 ]; then
                 failed_requests_percentage=$(echo "scale=2; ($failed_requests / $total_requests) * 100" | bc)
             else
                 failed_requests_percentage=0
             fi
-
-            # Print the results
-            echo "Requests per second: $requests_per_second"
-            echo "Time per request (mean): $time_per_request ms"
-            echo "Failed requests: $failed_requests ($failed_requests_percentage%)"
-            echo "Percentiles:"
-            echo "  p90: $p90 ms"
-            echo "  p95: $p95 ms"
-            echo "  p99: $p99 ms"
+            echo "Requests per second: $requests_per_second" > ${prefix}_parsed_results.txt
+            echo "Time per request (mean): $time_per_request ms" >> ${prefix}_parsed_results.txt
+            echo "Failed requests: $failed_requests ($failed_requests_percentage%)" >> ${prefix}_parsed_results.txt
+            echo "Percentiles:" >> ${prefix}_parsed_results.txt
+            echo "  p90: $p90 ms" >> ${prefix}_parsed_results.txt
+            echo "  p95: $p95 ms" >> ${prefix}_parsed_results.txt
+            echo "  p99: $p99 ms" >> ${prefix}_parsed_results.txt
         }
+        parse_ab_result foo_result.txt foo
+        parse_ab_result bar_result.txt bar
 
-        foo_result=$(parse_ab_result foo_result.txt)
-        # echo "foo_result=${foo_result}" >> $GITHUB_ENV
-        echo "foo_base64=$(echo "$foo_result" | base64)" >> $GITHUB_ENV
-        bar_result=$(parse_ab_result bar_result.txt)
-        echo "bar_base64=$(echo "$foo_result" | base64)" >> $GITHUB_ENV
-    - name: Post comment on PR
-      uses: actions/github-script@v3
+    - name: Post load testing results to GitHub PR
+      uses: marocchino/sticky-pull-request-comment@v2
       with:
-        github-token: ${{ secrets.GH_TOKEN }}
-        script: |
-          decoded_foo=$(echo "${{ env.foo_base64 }}" | base64 --decode)
-          echo "Decoded Multiline String: $decoded_foo"
-          decoded_bar=$(echo "${{ env.bar_base64 }}" | base64 --decode)
-          echo "Decoded Multiline String: $decoded_bar"
-          github.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.issue.number,
-            body: `### Load Testing Results\n\n**foo**:\n${decoded_foo}\n\n**bar**:\n${decoded_bar}`
-          });          
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        message: |
+          **Load Testing Results**
+          **Foo**:
+          $(cat foo_parsed_results.txt)
+
+          **Bar**:
+          $(cat bar_parsed_results.txt)
