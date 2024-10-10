@@ -1,0 +1,9 @@
+﻿2024-10-10T04:56:55.7562998Z ##[group]Run kubectl apply -f kubernetes/foo.yaml
+2024-10-10T04:56:55.7564120Z [36;1mkubectl apply -f kubernetes/foo.yaml[0m
+2024-10-10T04:56:55.7564999Z [36;1mkubectl apply -f kubernetes/bar.yaml[0m
+2024-10-10T04:56:55.7651366Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:55.7651973Z ##[endgroup]
+2024-10-10T04:56:55.8940450Z deployment.apps/foo created
+2024-10-10T04:56:55.9068495Z service/foo created
+2024-10-10T04:56:56.0232242Z deployment.apps/bar created
+2024-10-10T04:56:56.0336052Z service/bar created

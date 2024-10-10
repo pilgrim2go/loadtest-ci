@@ -1,0 +1,442 @@
+﻿2024-10-10T04:55:38.1118561Z Current runner version: '2.320.0'
+2024-10-10T04:55:38.1143728Z ##[group]Operating System
+2024-10-10T04:55:38.1144510Z Ubuntu
+2024-10-10T04:55:38.1144867Z 22.04.5
+2024-10-10T04:55:38.1145180Z LTS
+2024-10-10T04:55:38.1145590Z ##[endgroup]
+2024-10-10T04:55:38.1145972Z ##[group]Runner Image
+2024-10-10T04:55:38.1146416Z Image: ubuntu-22.04
+2024-10-10T04:55:38.1146842Z Version: 20241006.1.0
+2024-10-10T04:55:38.1147829Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20241006.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-10-10T04:55:38.1149259Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20241006.1
+2024-10-10T04:55:38.1150178Z ##[endgroup]
+2024-10-10T04:55:38.1150554Z ##[group]Runner Image Provisioner
+2024-10-10T04:55:38.1151035Z 2.0.384.1
+2024-10-10T04:55:38.1151764Z ##[endgroup]
+2024-10-10T04:55:38.1166132Z ##[group]GITHUB_TOKEN Permissions
+2024-10-10T04:55:38.1167746Z Contents: read
+2024-10-10T04:55:38.1168178Z Metadata: read
+2024-10-10T04:55:38.1168858Z Packages: read
+2024-10-10T04:55:38.1169305Z ##[endgroup]
+2024-10-10T04:55:38.1172309Z Secret source: Actions
+2024-10-10T04:55:38.1172902Z Prepare workflow directory
+2024-10-10T04:55:38.1788116Z Prepare all required actions
+2024-10-10T04:55:38.1943797Z Getting action download info
+2024-10-10T04:55:38.3415928Z Download action repository 'actions/checkout@v2' (SHA:ee0669bd1cc54295c223e0bb666b733df41de1c5)
+2024-10-10T04:55:38.4577188Z Download action repository 'actions/github-script@v3' (SHA:ffc2c79a5b2490bd33e0a41c1de74b877714d736)
+2024-10-10T04:55:38.7669423Z Complete job name: build
+2024-10-10T04:55:38.8645765Z ##[group]Run actions/checkout@v2
+2024-10-10T04:55:38.8646537Z with:
+2024-10-10T04:55:38.8646935Z   repository: pilgrim2go/loadtest-ci
+2024-10-10T04:55:38.8647728Z   token: ***
+2024-10-10T04:55:38.8648231Z   ssh-strict: true
+2024-10-10T04:55:38.8648672Z   persist-credentials: true
+2024-10-10T04:55:38.8649099Z   clean: true
+2024-10-10T04:55:38.8649573Z   fetch-depth: 1
+2024-10-10T04:55:38.8649966Z   lfs: false
+2024-10-10T04:55:38.8650329Z   submodules: false
+2024-10-10T04:55:38.8650821Z   set-safe-directory: true
+2024-10-10T04:55:38.8651299Z ##[endgroup]
+2024-10-10T04:55:39.0515842Z Syncing repository: pilgrim2go/loadtest-ci
+2024-10-10T04:55:39.0518089Z ##[group]Getting Git version info
+2024-10-10T04:55:39.0518995Z Working directory is '/home/runner/work/loadtest-ci/loadtest-ci'
+2024-10-10T04:55:39.0520228Z [command]/usr/bin/git version
+2024-10-10T04:55:39.0520716Z git version 2.46.2
+2024-10-10T04:55:39.0538866Z ##[endgroup]
+2024-10-10T04:55:39.0562336Z Temporarily overriding HOME='/home/runner/work/_temp/e7d31b9f-284a-4476-86dc-478ec429f244' before making global git config changes
+2024-10-10T04:55:39.0565017Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-10T04:55:39.0567259Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/loadtest-ci/loadtest-ci
+2024-10-10T04:55:39.0598455Z Deleting the contents of '/home/runner/work/loadtest-ci/loadtest-ci'
+2024-10-10T04:55:39.0602372Z ##[group]Initializing the repository
+2024-10-10T04:55:39.0605801Z [command]/usr/bin/git init /home/runner/work/loadtest-ci/loadtest-ci
+2024-10-10T04:55:39.0671135Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-10-10T04:55:39.0672936Z hint: is subject to change. To configure the initial branch name to use in all
+2024-10-10T04:55:39.0674597Z hint: of your new repositories, which will suppress this warning, call:
+2024-10-10T04:55:39.0675824Z hint:
+2024-10-10T04:55:39.0676901Z hint: 	git config --global init.defaultBranch <name>
+2024-10-10T04:55:39.0677798Z hint:
+2024-10-10T04:55:39.0678803Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-10-10T04:55:39.0680352Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-10-10T04:55:39.0681126Z hint:
+2024-10-10T04:55:39.0681491Z hint: 	git branch -m <name>
+2024-10-10T04:55:39.0682445Z Initialized empty Git repository in /home/runner/work/loadtest-ci/loadtest-ci/.git/
+2024-10-10T04:55:39.0687934Z [command]/usr/bin/git remote add origin https://github.com/pilgrim2go/loadtest-ci
+2024-10-10T04:55:39.0721233Z ##[endgroup]
+2024-10-10T04:55:39.0722523Z ##[group]Disabling automatic garbage collection
+2024-10-10T04:55:39.0725090Z [command]/usr/bin/git config --local gc.auto 0
+2024-10-10T04:55:39.0757931Z ##[endgroup]
+2024-10-10T04:55:39.0759347Z ##[group]Setting up auth
+2024-10-10T04:55:39.0765410Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-10T04:55:39.0800953Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-10T04:55:39.1122286Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-10T04:55:39.1153652Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-10T04:55:39.1407027Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-10-10T04:55:39.1446230Z ##[endgroup]
+2024-10-10T04:55:39.1447666Z ##[group]Fetching the repository
+2024-10-10T04:55:39.1455729Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +fc268b007b4e1357fa057131c0708b0cbcaa28fd:refs/remotes/pull/1/merge
+2024-10-10T04:55:39.3595985Z remote: Enumerating objects: 16, done.        
+2024-10-10T04:55:39.3597694Z remote: Counting objects:   6% (1/16)        
+2024-10-10T04:55:39.3599028Z remote: Counting objects:  12% (2/16)        
+2024-10-10T04:55:39.3600215Z remote: Counting objects:  18% (3/16)        
+2024-10-10T04:55:39.3601278Z remote: Counting objects:  25% (4/16)        
+2024-10-10T04:55:39.3602333Z remote: Counting objects:  31% (5/16)        
+2024-10-10T04:55:39.3603690Z remote: Counting objects:  37% (6/16)        
+2024-10-10T04:55:39.3604814Z remote: Counting objects:  43% (7/16)        
+2024-10-10T04:55:39.3605901Z remote: Counting objects:  50% (8/16)        
+2024-10-10T04:55:39.3606677Z remote: Counting objects:  56% (9/16)        
+2024-10-10T04:55:39.3607447Z remote: Counting objects:  62% (10/16)        
+2024-10-10T04:55:39.3608438Z remote: Counting objects:  68% (11/16)        
+2024-10-10T04:55:39.3609165Z remote: Counting objects:  75% (12/16)        
+2024-10-10T04:55:39.3609948Z remote: Counting objects:  81% (13/16)        
+2024-10-10T04:55:39.3610794Z remote: Counting objects:  87% (14/16)        
+2024-10-10T04:55:39.3611517Z remote: Counting objects:  93% (15/16)        
+2024-10-10T04:55:39.3612273Z remote: Counting objects: 100% (16/16)        
+2024-10-10T04:55:39.3613398Z remote: Counting objects: 100% (16/16), done.        
+2024-10-10T04:55:39.3614235Z remote: Compressing objects:   8% (1/12)        
+2024-10-10T04:55:39.3615164Z remote: Compressing objects:  16% (2/12)        
+2024-10-10T04:55:39.3615869Z remote: Compressing objects:  25% (3/12)        
+2024-10-10T04:55:39.3616626Z remote: Compressing objects:  33% (4/12)        
+2024-10-10T04:55:39.3617456Z remote: Compressing objects:  41% (5/12)        
+2024-10-10T04:55:39.3618208Z remote: Compressing objects:  50% (6/12)        
+2024-10-10T04:55:39.3618917Z remote: Compressing objects:  58% (7/12)        
+2024-10-10T04:55:39.3619735Z remote: Compressing objects:  66% (8/12)        
+2024-10-10T04:55:39.3620480Z remote: Compressing objects:  75% (9/12)        
+2024-10-10T04:55:39.3621242Z remote: Compressing objects:  83% (10/12)        
+2024-10-10T04:55:39.3622042Z remote: Compressing objects:  91% (11/12)        
+2024-10-10T04:55:39.3622810Z remote: Compressing objects: 100% (12/12)        
+2024-10-10T04:55:39.3623610Z remote: Compressing objects: 100% (12/12), done.        
+2024-10-10T04:55:39.3624907Z remote: Total 16 (delta 2), reused 12 (delta 2), pack-reused 0 (from 0)        
+2024-10-10T04:55:39.3714174Z From https://github.com/pilgrim2go/loadtest-ci
+2024-10-10T04:55:39.3716292Z  * [new ref]         fc268b007b4e1357fa057131c0708b0cbcaa28fd -> pull/1/merge
+2024-10-10T04:55:39.3742209Z ##[endgroup]
+2024-10-10T04:55:39.3743486Z ##[group]Determining the checkout info
+2024-10-10T04:55:39.3745099Z ##[endgroup]
+2024-10-10T04:55:39.3746305Z ##[group]Checking out the ref
+2024-10-10T04:55:39.3750186Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+2024-10-10T04:55:39.3792283Z Note: switching to 'refs/remotes/pull/1/merge'.
+2024-10-10T04:55:39.3793015Z 
+2024-10-10T04:55:39.3793822Z You are in 'detached HEAD' state. You can look around, make experimental
+2024-10-10T04:55:39.3795099Z changes and commit them, and you can discard any commits you make in this
+2024-10-10T04:55:39.3796811Z state without impacting any branches by switching back to a branch.
+2024-10-10T04:55:39.3798023Z 
+2024-10-10T04:55:39.3799132Z If you want to create a new branch to retain commits you create, you may
+2024-10-10T04:55:39.3801221Z do so (now or later) by using -c with the switch command. Example:
+2024-10-10T04:55:39.3802188Z 
+2024-10-10T04:55:39.3802588Z   git switch -c <new-branch-name>
+2024-10-10T04:55:39.3803371Z 
+2024-10-10T04:55:39.3803663Z Or undo this operation with:
+2024-10-10T04:55:39.3804160Z 
+2024-10-10T04:55:39.3804441Z   git switch -
+2024-10-10T04:55:39.3804804Z 
+2024-10-10T04:55:39.3805564Z Turn off this advice by setting config variable advice.detachedHead to false
+2024-10-10T04:55:39.3806717Z 
+2024-10-10T04:55:39.3808069Z HEAD is now at fc268b0 Merge 47e2c680bd008c03a63e6e3d23dab59d49cb4700 into 50848121ea0c2b63d70ae60ee872a2023a780b22
+2024-10-10T04:55:39.3810285Z ##[endgroup]
+2024-10-10T04:55:39.3839035Z [command]/usr/bin/git log -1 --format='%H'
+2024-10-10T04:55:39.3865611Z 'fc268b007b4e1357fa057131c0708b0cbcaa28fd'
+2024-10-10T04:55:39.4201360Z ##[group]Run curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64
+2024-10-10T04:55:39.4202759Z [36;1mcurl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.24.0/kind-linux-amd64[0m
+2024-10-10T04:55:39.4203618Z [36;1mchmod +x ./kind[0m
+2024-10-10T04:55:39.4204123Z [36;1msudo mv ./kind /usr/local/bin/kind[0m
+2024-10-10T04:55:39.4204898Z [36;1m# setup 2 nodes kind cluster with ingress-nginx[0m
+2024-10-10T04:55:39.4205549Z [36;1mbash ./kubernetes/kind-config.sh[0m
+2024-10-10T04:55:39.4294057Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:55:39.4294592Z ##[endgroup]
+2024-10-10T04:55:39.4507408Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2024-10-10T04:55:39.4509206Z                                  Dload  Upload   Total   Spent    Left  Speed
+2024-10-10T04:55:39.4510077Z 
+2024-10-10T04:55:39.5598476Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2024-10-10T04:55:39.5600162Z 100    97  100    97    0     0    886      0 --:--:-- --:--:-- --:--:--   889
+2024-10-10T04:55:39.6631852Z 
+2024-10-10T04:55:39.6632755Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2024-10-10T04:55:39.7849565Z 
+2024-10-10T04:55:39.7851467Z 100 9697k  100 9697k    0     0  28.3M      0 --:--:-- --:--:-- --:--:-- 28.3M
+2024-10-10T04:55:40.0601916Z Creating cluster "kind" ...
+2024-10-10T04:55:40.0603901Z  • Ensuring node image (kindest/node:v1.31.0) 🖼  ...
+2024-10-10T04:55:49.6256257Z  ✓ Ensuring node image (kindest/node:v1.31.0) 🖼
+2024-10-10T04:55:49.6257526Z  • Preparing nodes 📦 📦 📦   ...
+2024-10-10T04:55:54.6152147Z  ✓ Preparing nodes 📦 📦 📦 
+2024-10-10T04:55:54.6716018Z  • Writing configuration 📜  ...
+2024-10-10T04:55:55.0076701Z  ✓ Writing configuration 📜
+2024-10-10T04:55:55.0078198Z  • Starting control-plane 🕹️  ...
+2024-10-10T04:56:05.9822449Z  ✓ Starting control-plane 🕹️
+2024-10-10T04:56:05.9823480Z  • Installing CNI 🔌  ...
+2024-10-10T04:56:06.3523866Z  ✓ Installing CNI 🔌
+2024-10-10T04:56:06.3524968Z  • Installing StorageClass 💾  ...
+2024-10-10T04:56:06.6899618Z  ✓ Installing StorageClass 💾
+2024-10-10T04:56:06.7727704Z  • Joining worker nodes 🚜  ...
+2024-10-10T04:56:19.1574269Z  ✓ Joining worker nodes 🚜
+2024-10-10T04:56:19.3724179Z Set kubectl context to "kind-kind"
+2024-10-10T04:56:19.3725051Z You can now use your cluster with:
+2024-10-10T04:56:19.3727979Z 
+2024-10-10T04:56:19.3728895Z kubectl cluster-info --context kind-kind
+2024-10-10T04:56:19.3729422Z 
+2024-10-10T04:56:19.3730327Z Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+2024-10-10T04:56:19.3780088Z ##[group]Run sudo apt-get update
+2024-10-10T04:56:19.3780573Z [36;1msudo apt-get update[0m
+2024-10-10T04:56:19.3780978Z [36;1msudo apt-get install -y kubectl[0m
+2024-10-10T04:56:19.3844513Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:19.3845066Z ##[endgroup]
+2024-10-10T04:56:19.5067706Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [142 B]
+2024-10-10T04:56:19.5424529Z Hit:2 http://azure.archive.ubuntu.com/ubuntu jammy InRelease
+2024-10-10T04:56:19.5443280Z Get:3 http://azure.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+2024-10-10T04:56:19.5455175Z Get:6 https://packages.microsoft.com/repos/azure-cli jammy InRelease [3596 B]
+2024-10-10T04:56:19.5486858Z Hit:4 http://azure.archive.ubuntu.com/ubuntu jammy-backports InRelease
+2024-10-10T04:56:19.5501060Z Get:5 http://azure.archive.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+2024-10-10T04:56:19.5502859Z Get:7 https://packages.microsoft.com/ubuntu/22.04/prod jammy InRelease [3632 B]
+2024-10-10T04:56:19.7182302Z Get:8 https://packages.microsoft.com/repos/azure-cli jammy/main amd64 Packages [1867 B]
+2024-10-10T04:56:19.8139813Z Get:9 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [2071 kB]
+2024-10-10T04:56:19.8264427Z Get:10 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [358 kB]
+2024-10-10T04:56:19.8297989Z Get:11 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [17.9 kB]
+2024-10-10T04:56:19.8314937Z Get:12 http://azure.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [2511 kB]
+2024-10-10T04:56:19.8474884Z Get:13 http://azure.archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [433 kB]
+2024-10-10T04:56:19.8516996Z Get:14 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1130 kB]
+2024-10-10T04:56:19.8603389Z Get:15 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [264 kB]
+2024-10-10T04:56:19.8635094Z Get:16 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [26.3 kB]
+2024-10-10T04:56:20.0993197Z Get:17 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main amd64 Packages [176 kB]
+2024-10-10T04:56:20.1165336Z Get:18 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main armhf Packages [15.7 kB]
+2024-10-10T04:56:20.1295276Z Get:19 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main arm64 Packages [43.8 kB]
+2024-10-10T04:56:20.2365243Z Get:20 http://azure.archive.ubuntu.com/ubuntu jammy-security/main amd64 Packages [1849 kB]
+2024-10-10T04:56:20.2707686Z Get:21 http://azure.archive.ubuntu.com/ubuntu jammy-security/main Translation-en [300 kB]
+2024-10-10T04:56:20.3323893Z Get:22 http://azure.archive.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [13.3 kB]
+2024-10-10T04:56:20.3326918Z Get:23 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [909 kB]
+2024-10-10T04:56:20.3333105Z Get:24 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe Translation-en [180 kB]
+2024-10-10T04:56:20.3464400Z Get:25 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [19.5 kB]
+2024-10-10T04:56:25.7368081Z Fetched 10.6 MB in 2s (5812 kB/s)
+2024-10-10T04:56:26.7834529Z Reading package lists...
+2024-10-10T04:56:26.8431063Z Reading package lists...
+2024-10-10T04:56:26.9916657Z Building dependency tree...
+2024-10-10T04:56:26.9928587Z Reading state information...
+2024-10-10T04:56:27.1322699Z kubectl is already the newest version (1.31.1-1.1).
+2024-10-10T04:56:27.1323929Z 0 upgraded, 0 newly installed, 0 to remove and 30 not upgraded.
+2024-10-10T04:56:27.1381638Z ##[group]Run kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+2024-10-10T04:56:27.1383087Z [36;1mkubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml[0m
+2024-10-10T04:56:27.1384001Z [36;1mkubectl wait --namespace ingress-nginx \[0m
+2024-10-10T04:56:27.1384492Z [36;1m  --for=condition=ready pod \[0m
+2024-10-10T04:56:27.1385047Z [36;1m  --selector=app.kubernetes.io/component=controller \[0m
+2024-10-10T04:56:27.1385578Z [36;1m  --timeout=90s[0m
+2024-10-10T04:56:27.1443708Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:27.1444073Z ##[endgroup]
+2024-10-10T04:56:27.8367138Z namespace/ingress-nginx created
+2024-10-10T04:56:27.8418803Z serviceaccount/ingress-nginx created
+2024-10-10T04:56:27.8462148Z serviceaccount/ingress-nginx-admission created
+2024-10-10T04:56:27.8513364Z role.rbac.authorization.k8s.io/ingress-nginx created
+2024-10-10T04:56:27.8562892Z role.rbac.authorization.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:27.8603277Z clusterrole.rbac.authorization.k8s.io/ingress-nginx created
+2024-10-10T04:56:27.8643394Z clusterrole.rbac.authorization.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:27.8696443Z rolebinding.rbac.authorization.k8s.io/ingress-nginx created
+2024-10-10T04:56:27.8743230Z rolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:27.8787174Z clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx created
+2024-10-10T04:56:27.8831812Z clusterrolebinding.rbac.authorization.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:27.8876623Z configmap/ingress-nginx-controller created
+2024-10-10T04:56:27.8981099Z service/ingress-nginx-controller created
+2024-10-10T04:56:27.9064434Z service/ingress-nginx-controller-admission created
+2024-10-10T04:56:27.9140739Z deployment.apps/ingress-nginx-controller created
+2024-10-10T04:56:27.9230021Z job.batch/ingress-nginx-admission-create created
+2024-10-10T04:56:27.9413216Z job.batch/ingress-nginx-admission-patch created
+2024-10-10T04:56:27.9480040Z ingressclass.networking.k8s.io/nginx created
+2024-10-10T04:56:27.9569543Z validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created
+2024-10-10T04:56:55.7505139Z pod/ingress-nginx-controller-6b8cfc8d84-vsxmq condition met
+2024-10-10T04:56:55.7563015Z ##[group]Run kubectl apply -f kubernetes/foo.yaml
+2024-10-10T04:56:55.7564131Z [36;1mkubectl apply -f kubernetes/foo.yaml[0m
+2024-10-10T04:56:55.7565006Z [36;1mkubectl apply -f kubernetes/bar.yaml[0m
+2024-10-10T04:56:55.7651378Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:55.7651981Z ##[endgroup]
+2024-10-10T04:56:55.8940496Z deployment.apps/foo created
+2024-10-10T04:56:55.9068541Z service/foo created
+2024-10-10T04:56:56.0232333Z deployment.apps/bar created
+2024-10-10T04:56:56.0336082Z service/bar created
+2024-10-10T04:56:56.0430680Z ##[group]Run kubectl apply -f kubernetes/ingress.yaml
+2024-10-10T04:56:56.0431848Z [36;1mkubectl apply -f kubernetes/ingress.yaml[0m
+2024-10-10T04:56:56.0514807Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:56.0515440Z ##[endgroup]
+2024-10-10T04:56:56.1473113Z ingress.networking.k8s.io/loadtest-ingress created
+2024-10-10T04:56:56.1551732Z ##[group]Run kubectl wait --for=condition=available --timeout=60s deployment/foo
+2024-10-10T04:56:56.1553169Z [36;1mkubectl wait --for=condition=available --timeout=60s deployment/foo[0m
+2024-10-10T04:56:56.1554651Z [36;1mkubectl wait --for=condition=available --timeout=60s deployment/bar[0m
+2024-10-10T04:56:56.1622423Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:56.1622858Z ##[endgroup]
+2024-10-10T04:56:58.0350054Z deployment.apps/foo condition met
+2024-10-10T04:56:58.1872645Z deployment.apps/bar condition met
+2024-10-10T04:56:58.1930537Z ##[group]Run sudo apt-get install -y apache2-utils
+2024-10-10T04:56:58.1931277Z [36;1msudo apt-get install -y apache2-utils[0m
+2024-10-10T04:56:58.1931865Z [36;1m# todo move to github env to allow multiple scenarios[0m
+2024-10-10T04:56:58.1932698Z [36;1mab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt[0m
+2024-10-10T04:56:58.1933408Z [36;1mab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt[0m
+2024-10-10T04:56:58.1933918Z [36;1m# cat here for debug only[0m
+2024-10-10T04:56:58.1934393Z [36;1mcat foo_result.txt[0m
+2024-10-10T04:56:58.1934750Z [36;1mcat bar_result.txt[0m
+2024-10-10T04:56:58.1935202Z [36;1m# parse result to get desired target indicators[0m
+2024-10-10T04:56:58.1935751Z [36;1mparse_ab_result() {[0m
+2024-10-10T04:56:58.1936153Z [36;1m    local result_file=$1[0m
+2024-10-10T04:56:58.1936513Z [36;1m    local prefix=$2[0m
+2024-10-10T04:56:58.1937285Z [36;1m    requests_per_second=$(grep "Requests per second" "$result_file" | awk '{print $4}')[0m
+2024-10-10T04:56:58.1938154Z [36;1m    time_per_request=$(grep "Time per request" "$result_file" | grep "\(mean\)" | awk '{print $4}')[0m
+2024-10-10T04:56:58.1939048Z [36;1m    failed_requests=$(grep "Failed requests" "$result_file" | awk '{print $3}')[0m
+2024-10-10T04:56:58.1939785Z [36;1m    total_requests=$(grep "Complete requests" "$result_file" | awk '{print $3}')[0m
+2024-10-10T04:56:58.1940741Z [36;1m    p90=$(grep -A 1 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')[0m
+2024-10-10T04:56:58.1941939Z [36;1m    p95=$(grep -A 2 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')[0m
+2024-10-10T04:56:58.1943046Z [36;1m    p99=$(grep -A 3 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')[0m
+2024-10-10T04:56:58.1943835Z [36;1m    if [ "$total_requests" -gt 0 ]; then[0m
+2024-10-10T04:56:58.1944577Z [36;1m        failed_requests_percentage=$(echo "scale=2; ($failed_requests / $total_requests) * 100" | bc)[0m
+2024-10-10T04:56:58.1945223Z [36;1m    else[0m
+2024-10-10T04:56:58.1945589Z [36;1m        failed_requests_percentage=0[0m
+2024-10-10T04:56:58.1946099Z [36;1m    fi[0m
+2024-10-10T04:56:58.1946593Z [36;1m    echo "Requests per second: $requests_per_second" > ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1947478Z [36;1m    echo "Time per request (mean): $time_per_request ms" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1948468Z [36;1m    echo "Failed requests: $failed_requests ($failed_requests_percentage%)" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1949394Z [36;1m    echo "Percentiles:" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1950011Z [36;1m    echo "  p90: $p90 ms" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1950654Z [36;1m    echo "  p95: $p95 ms" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1951250Z [36;1m    echo "  p99: $p99 ms" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1952025Z [36;1m}[0m
+2024-10-10T04:56:58.1952475Z [36;1mparse_ab_result foo_result.txt foo[0m
+2024-10-10T04:56:58.1952906Z [36;1mparse_ab_result bar_result.txt bar[0m
+2024-10-10T04:56:58.2010460Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:58.2010825Z ##[endgroup]
+2024-10-10T04:56:58.2596859Z Reading package lists...
+2024-10-10T04:56:58.4090868Z Building dependency tree...
+2024-10-10T04:56:58.4102029Z Reading state information...
+2024-10-10T04:56:58.5668022Z apache2-utils is already the newest version (2.4.52-1ubuntu4.12).
+2024-10-10T04:56:58.5669155Z apache2-utils set to manually installed.
+2024-10-10T04:56:58.5670442Z 0 upgraded, 0 newly installed, 0 to remove and 30 not upgraded.
+2024-10-10T04:56:58.6478476Z Completed 100 requests
+2024-10-10T04:56:58.6671138Z Completed 200 requests
+2024-10-10T04:56:58.6865941Z Completed 300 requests
+2024-10-10T04:56:58.7066346Z Completed 400 requests
+2024-10-10T04:56:58.7297523Z Completed 500 requests
+2024-10-10T04:56:58.7500640Z Completed 600 requests
+2024-10-10T04:56:58.7685514Z Completed 700 requests
+2024-10-10T04:56:58.7882703Z Completed 800 requests
+2024-10-10T04:56:58.8082490Z Completed 900 requests
+2024-10-10T04:56:58.8259410Z Completed 1000 requests
+2024-10-10T04:56:58.8260651Z Finished 1000 requests
+2024-10-10T04:56:58.8522118Z Completed 100 requests
+2024-10-10T04:56:58.8726526Z Completed 200 requests
+2024-10-10T04:56:58.8921379Z Completed 300 requests
+2024-10-10T04:56:58.9115493Z Completed 400 requests
+2024-10-10T04:56:58.9303180Z Completed 500 requests
+2024-10-10T04:56:58.9497937Z Completed 600 requests
+2024-10-10T04:56:58.9699226Z Completed 700 requests
+2024-10-10T04:56:58.9896481Z Completed 800 requests
+2024-10-10T04:56:59.0142024Z Completed 900 requests
+2024-10-10T04:56:59.0330877Z Completed 1000 requests
+2024-10-10T04:56:59.0331458Z Finished 1000 requests
+2024-10-10T04:56:59.0358823Z This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
+2024-10-10T04:56:59.0360153Z Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+2024-10-10T04:56:59.0361409Z Licensed to The Apache Software Foundation, http://www.apache.org/
+2024-10-10T04:56:59.0362076Z 
+2024-10-10T04:56:59.0362350Z Benchmarking foo.localhost (be patient)
+2024-10-10T04:56:59.0362999Z 
+2024-10-10T04:56:59.0363006Z 
+2024-10-10T04:56:59.0363218Z Server Software:        
+2024-10-10T04:56:59.0363893Z Server Hostname:        foo.localhost
+2024-10-10T04:56:59.0367306Z Server Port:            80
+2024-10-10T04:56:59.0367709Z 
+2024-10-10T04:56:59.0367969Z Document Path:          /
+2024-10-10T04:56:59.0368815Z Document Length:        146 bytes
+2024-10-10T04:56:59.0369258Z 
+2024-10-10T04:56:59.0369396Z Concurrency Level:      10
+2024-10-10T04:56:59.0369805Z Time taken for tests:   0.209 seconds
+2024-10-10T04:56:59.0370191Z Complete requests:      1000
+2024-10-10T04:56:59.0370660Z Failed requests:        0
+2024-10-10T04:56:59.0371233Z Non-2xx responses:      1000
+2024-10-10T04:56:59.0371742Z Total transferred:      274000 bytes
+2024-10-10T04:56:59.0372145Z HTML transferred:       146000 bytes
+2024-10-10T04:56:59.0372590Z Requests per second:    4777.15 [#/sec] (mean)
+2024-10-10T04:56:59.0373157Z Time per request:       2.093 [ms] (mean)
+2024-10-10T04:56:59.0373704Z Time per request:       0.209 [ms] (mean, across all concurrent requests)
+2024-10-10T04:56:59.0374277Z Transfer rate:          1278.26 [Kbytes/sec] received
+2024-10-10T04:56:59.0374633Z 
+2024-10-10T04:56:59.0374825Z Connection Times (ms)
+2024-10-10T04:56:59.0375248Z               min  mean[+/-sd] median   max
+2024-10-10T04:56:59.0375690Z Connect:        0    0   0.2      0       1
+2024-10-10T04:56:59.0376178Z Processing:     0    2   1.2      2      14
+2024-10-10T04:56:59.0376608Z Waiting:        0    2   1.2      1      14
+2024-10-10T04:56:59.0377268Z Total:          1    2   1.2      2      14
+2024-10-10T04:56:59.0377837Z 
+2024-10-10T04:56:59.0378282Z Percentage of the requests served within a certain time (ms)
+2024-10-10T04:56:59.0379937Z   50%      2
+2024-10-10T04:56:59.0380499Z   66%      2
+2024-10-10T04:56:59.0381107Z   75%      2
+2024-10-10T04:56:59.0381429Z   80%      2
+2024-10-10T04:56:59.0381707Z   90%      3
+2024-10-10T04:56:59.0382074Z   95%      3
+2024-10-10T04:56:59.0382363Z   98%      4
+2024-10-10T04:56:59.0382641Z   99%     11
+2024-10-10T04:56:59.0383013Z  100%     14 (longest request)
+2024-10-10T04:56:59.0383485Z This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
+2024-10-10T04:56:59.0384204Z Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+2024-10-10T04:56:59.0384867Z Licensed to The Apache Software Foundation, http://www.apache.org/
+2024-10-10T04:56:59.0385282Z 
+2024-10-10T04:56:59.0385455Z Benchmarking bar.localhost (be patient)
+2024-10-10T04:56:59.0385815Z 
+2024-10-10T04:56:59.0385819Z 
+2024-10-10T04:56:59.0386017Z Server Software:        
+2024-10-10T04:56:59.0386571Z Server Hostname:        bar.localhost
+2024-10-10T04:56:59.0387255Z Server Port:            80
+2024-10-10T04:56:59.0387599Z 
+2024-10-10T04:56:59.0387961Z Document Path:          /
+2024-10-10T04:56:59.0388870Z Document Length:        146 bytes
+2024-10-10T04:56:59.0389361Z 
+2024-10-10T04:56:59.0389574Z Concurrency Level:      10
+2024-10-10T04:56:59.0390308Z Time taken for tests:   0.201 seconds
+2024-10-10T04:56:59.0391248Z Complete requests:      1000
+2024-10-10T04:56:59.0392964Z Failed requests:        0
+2024-10-10T04:56:59.0393947Z Non-2xx responses:      1000
+2024-10-10T04:56:59.0394618Z Total transferred:      274000 bytes
+2024-10-10T04:56:59.0395295Z HTML transferred:       146000 bytes
+2024-10-10T04:56:59.0396165Z Requests per second:    4975.03 [#/sec] (mean)
+2024-10-10T04:56:59.0396955Z Time per request:       2.010 [ms] (mean)
+2024-10-10T04:56:59.0397906Z Time per request:       0.201 [ms] (mean, across all concurrent requests)
+2024-10-10T04:56:59.0399006Z Transfer rate:          1331.21 [Kbytes/sec] received
+2024-10-10T04:56:59.0399575Z 
+2024-10-10T04:56:59.0399777Z Connection Times (ms)
+2024-10-10T04:56:59.0400460Z               min  mean[+/-sd] median   max
+2024-10-10T04:56:59.0401265Z Connect:        0    0   0.2      0       1
+2024-10-10T04:56:59.0401967Z Processing:     0    2   0.8      2       8
+2024-10-10T04:56:59.0402725Z Waiting:        0    2   0.8      1       8
+2024-10-10T04:56:59.0403525Z Total:          1    2   0.8      2       8
+2024-10-10T04:56:59.0404549Z WARNING: The median and mean for the waiting time are not within a normal deviation
+2024-10-10T04:56:59.0406037Z         These results are probably not that reliable.
+2024-10-10T04:56:59.0406775Z 
+2024-10-10T04:56:59.0407187Z Percentage of the requests served within a certain time (ms)
+2024-10-10T04:56:59.0408073Z   50%      2
+2024-10-10T04:56:59.0408748Z   66%      2
+2024-10-10T04:56:59.0409227Z   75%      2
+2024-10-10T04:56:59.0409743Z   80%      2
+2024-10-10T04:56:59.0410331Z   90%      3
+2024-10-10T04:56:59.0410763Z   95%      3
+2024-10-10T04:56:59.0411284Z   98%      4
+2024-10-10T04:56:59.0411839Z   99%      5
+2024-10-10T04:56:59.0412343Z  100%      8 (longest request)
+2024-10-10T04:56:59.0966841Z ##[group]Run actions/github-script@v3
+2024-10-10T04:56:59.0967548Z with:
+2024-10-10T04:56:59.0968719Z   github-token: ***
+2024-10-10T04:56:59.0970724Z   script: const fs = require('fs');
+const fooResults = fs.readFileSync('foo_parsed_results.txt', 'utf8');
+const barResults = fs.readFileSync('bar_parsed_results.txt', 'utf8');
+github.issues.createComment({
+  owner: context.repo.owner,
+  repo: context.repo.repo,
+  issue_number: context.issue.number,
+  body: `### Load Testing Results\n\n**Foo**:\n${fooResults}\n\n**Bar**:\n${barResults}`
+});
+
+2024-10-10T04:56:59.0972850Z   debug: false
+2024-10-10T04:56:59.0973224Z   user-agent: actions/github-script
+2024-10-10T04:56:59.0973631Z   result-encoding: json
+2024-10-10T04:56:59.0974128Z ##[endgroup]
+2024-10-10T04:56:59.9514812Z Post job cleanup.
+2024-10-10T04:57:00.0406194Z [command]/usr/bin/git version
+2024-10-10T04:57:00.0444216Z git version 2.46.2
+2024-10-10T04:57:00.0490297Z Temporarily overriding HOME='/home/runner/work/_temp/b7ae6e35-532c-4e3c-b7f8-cf5431ffaf77' before making global git config changes
+2024-10-10T04:57:00.0491424Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-10T04:57:00.0494037Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/loadtest-ci/loadtest-ci
+2024-10-10T04:57:00.0531080Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-10T04:57:00.0565132Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-10T04:57:00.0817924Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-10T04:57:00.0840435Z http.https://github.com/.extraheader
+2024-10-10T04:57:00.0851470Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-10-10T04:57:00.0882562Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-10T04:57:00.1354589Z Cleaning up orphan processes

@@ -1,0 +1,37 @@
+﻿2024-10-10T04:56:19.3780076Z ##[group]Run sudo apt-get update
+2024-10-10T04:56:19.3780532Z [36;1msudo apt-get update[0m
+2024-10-10T04:56:19.3780975Z [36;1msudo apt-get install -y kubectl[0m
+2024-10-10T04:56:19.3844504Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:19.3845061Z ##[endgroup]
+2024-10-10T04:56:19.5067669Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [142 B]
+2024-10-10T04:56:19.5424496Z Hit:2 http://azure.archive.ubuntu.com/ubuntu jammy InRelease
+2024-10-10T04:56:19.5443264Z Get:3 http://azure.archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+2024-10-10T04:56:19.5455161Z Get:6 https://packages.microsoft.com/repos/azure-cli jammy InRelease [3596 B]
+2024-10-10T04:56:19.5486841Z Hit:4 http://azure.archive.ubuntu.com/ubuntu jammy-backports InRelease
+2024-10-10T04:56:19.5501045Z Get:5 http://azure.archive.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+2024-10-10T04:56:19.5502849Z Get:7 https://packages.microsoft.com/ubuntu/22.04/prod jammy InRelease [3632 B]
+2024-10-10T04:56:19.7182152Z Get:8 https://packages.microsoft.com/repos/azure-cli jammy/main amd64 Packages [1867 B]
+2024-10-10T04:56:19.8139765Z Get:9 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [2071 kB]
+2024-10-10T04:56:19.8264404Z Get:10 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [358 kB]
+2024-10-10T04:56:19.8297973Z Get:11 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 c-n-f Metadata [17.9 kB]
+2024-10-10T04:56:19.8314919Z Get:12 http://azure.archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [2511 kB]
+2024-10-10T04:56:19.8474863Z Get:13 http://azure.archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [433 kB]
+2024-10-10T04:56:19.8516979Z Get:14 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1130 kB]
+2024-10-10T04:56:19.8603371Z Get:15 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [264 kB]
+2024-10-10T04:56:19.8635056Z Get:16 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 c-n-f Metadata [26.3 kB]
+2024-10-10T04:56:20.0993151Z Get:17 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main amd64 Packages [176 kB]
+2024-10-10T04:56:20.1165255Z Get:18 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main armhf Packages [15.7 kB]
+2024-10-10T04:56:20.1295236Z Get:19 https://packages.microsoft.com/ubuntu/22.04/prod jammy/main arm64 Packages [43.8 kB]
+2024-10-10T04:56:20.2365199Z Get:20 http://azure.archive.ubuntu.com/ubuntu jammy-security/main amd64 Packages [1849 kB]
+2024-10-10T04:56:20.2707649Z Get:21 http://azure.archive.ubuntu.com/ubuntu jammy-security/main Translation-en [300 kB]
+2024-10-10T04:56:20.3323861Z Get:22 http://azure.archive.ubuntu.com/ubuntu jammy-security/main amd64 c-n-f Metadata [13.3 kB]
+2024-10-10T04:56:20.3326850Z Get:23 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [909 kB]
+2024-10-10T04:56:20.3333089Z Get:24 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe Translation-en [180 kB]
+2024-10-10T04:56:20.3464355Z Get:25 http://azure.archive.ubuntu.com/ubuntu jammy-security/universe amd64 c-n-f Metadata [19.5 kB]
+2024-10-10T04:56:25.7368039Z Fetched 10.6 MB in 2s (5812 kB/s)
+2024-10-10T04:56:26.7834479Z Reading package lists...
+2024-10-10T04:56:26.8431023Z Reading package lists...
+2024-10-10T04:56:26.9916620Z Building dependency tree...
+2024-10-10T04:56:26.9928573Z Reading state information...
+2024-10-10T04:56:27.1322654Z kubectl is already the newest version (1.31.1-1.1).
+2024-10-10T04:56:27.1323919Z 0 upgraded, 0 newly installed, 0 to remove and 30 not upgraded.

@@ -1,0 +1,152 @@
+﻿2024-10-10T04:56:58.1930524Z ##[group]Run sudo apt-get install -y apache2-utils
+2024-10-10T04:56:58.1931273Z [36;1msudo apt-get install -y apache2-utils[0m
+2024-10-10T04:56:58.1931862Z [36;1m# todo move to github env to allow multiple scenarios[0m
+2024-10-10T04:56:58.1932694Z [36;1mab -n 1000 -c 10 http://foo.localhost/ > foo_result.txt[0m
+2024-10-10T04:56:58.1933405Z [36;1mab -n 1000 -c 10 http://bar.localhost/ > bar_result.txt[0m
+2024-10-10T04:56:58.1933915Z [36;1m# cat here for debug only[0m
+2024-10-10T04:56:58.1934389Z [36;1mcat foo_result.txt[0m
+2024-10-10T04:56:58.1934747Z [36;1mcat bar_result.txt[0m
+2024-10-10T04:56:58.1935198Z [36;1m# parse result to get desired target indicators[0m
+2024-10-10T04:56:58.1935748Z [36;1mparse_ab_result() {[0m
+2024-10-10T04:56:58.1936150Z [36;1m    local result_file=$1[0m
+2024-10-10T04:56:58.1936510Z [36;1m    local prefix=$2[0m
+2024-10-10T04:56:58.1937162Z [36;1m    requests_per_second=$(grep "Requests per second" "$result_file" | awk '{print $4}')[0m
+2024-10-10T04:56:58.1938150Z [36;1m    time_per_request=$(grep "Time per request" "$result_file" | grep "\(mean\)" | awk '{print $4}')[0m
+2024-10-10T04:56:58.1938932Z [36;1m    failed_requests=$(grep "Failed requests" "$result_file" | awk '{print $3}')[0m
+2024-10-10T04:56:58.1939782Z [36;1m    total_requests=$(grep "Complete requests" "$result_file" | awk '{print $3}')[0m
+2024-10-10T04:56:58.1940737Z [36;1m    p90=$(grep -A 1 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')[0m
+2024-10-10T04:56:58.1941936Z [36;1m    p95=$(grep -A 2 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')[0m
+2024-10-10T04:56:58.1943042Z [36;1m    p99=$(grep -A 3 "Percentage of the requests served within a certain time (ms)" "$result_file" | tail -1 | awk '{print $2}')[0m
+2024-10-10T04:56:58.1943832Z [36;1m    if [ "$total_requests" -gt 0 ]; then[0m
+2024-10-10T04:56:58.1944569Z [36;1m        failed_requests_percentage=$(echo "scale=2; ($failed_requests / $total_requests) * 100" | bc)[0m
+2024-10-10T04:56:58.1945221Z [36;1m    else[0m
+2024-10-10T04:56:58.1945585Z [36;1m        failed_requests_percentage=0[0m
+2024-10-10T04:56:58.1946096Z [36;1m    fi[0m
+2024-10-10T04:56:58.1946589Z [36;1m    echo "Requests per second: $requests_per_second" > ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1947475Z [36;1m    echo "Time per request (mean): $time_per_request ms" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1948462Z [36;1m    echo "Failed requests: $failed_requests ($failed_requests_percentage%)" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1949391Z [36;1m    echo "Percentiles:" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1950008Z [36;1m    echo "  p90: $p90 ms" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1950651Z [36;1m    echo "  p95: $p95 ms" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1951242Z [36;1m    echo "  p99: $p99 ms" >> ${prefix}_parsed_results.txt[0m
+2024-10-10T04:56:58.1952021Z [36;1m}[0m
+2024-10-10T04:56:58.1952472Z [36;1mparse_ab_result foo_result.txt foo[0m
+2024-10-10T04:56:58.1952904Z [36;1mparse_ab_result bar_result.txt bar[0m
+2024-10-10T04:56:58.2010450Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:58.2010822Z ##[endgroup]
+2024-10-10T04:56:58.2596814Z Reading package lists...
+2024-10-10T04:56:58.4090832Z Building dependency tree...
+2024-10-10T04:56:58.4102019Z Reading state information...
+2024-10-10T04:56:58.5667989Z apache2-utils is already the newest version (2.4.52-1ubuntu4.12).
+2024-10-10T04:56:58.5669144Z apache2-utils set to manually installed.
+2024-10-10T04:56:58.5670430Z 0 upgraded, 0 newly installed, 0 to remove and 30 not upgraded.
+2024-10-10T04:56:58.6478438Z Completed 100 requests
+2024-10-10T04:56:58.6671110Z Completed 200 requests
+2024-10-10T04:56:58.6865915Z Completed 300 requests
+2024-10-10T04:56:58.7066326Z Completed 400 requests
+2024-10-10T04:56:58.7297506Z Completed 500 requests
+2024-10-10T04:56:58.7499390Z Completed 600 requests
+2024-10-10T04:56:58.7685496Z Completed 700 requests
+2024-10-10T04:56:58.7882684Z Completed 800 requests
+2024-10-10T04:56:58.8082471Z Completed 900 requests
+2024-10-10T04:56:58.8259390Z Completed 1000 requests
+2024-10-10T04:56:58.8260634Z Finished 1000 requests
+2024-10-10T04:56:58.8522099Z Completed 100 requests
+2024-10-10T04:56:58.8726509Z Completed 200 requests
+2024-10-10T04:56:58.8921362Z Completed 300 requests
+2024-10-10T04:56:58.9115476Z Completed 400 requests
+2024-10-10T04:56:58.9303108Z Completed 500 requests
+2024-10-10T04:56:58.9497917Z Completed 600 requests
+2024-10-10T04:56:58.9699208Z Completed 700 requests
+2024-10-10T04:56:58.9896464Z Completed 800 requests
+2024-10-10T04:56:59.0142007Z Completed 900 requests
+2024-10-10T04:56:59.0330657Z Completed 1000 requests
+2024-10-10T04:56:59.0331452Z Finished 1000 requests
+2024-10-10T04:56:59.0358806Z This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
+2024-10-10T04:56:59.0360119Z Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+2024-10-10T04:56:59.0361404Z Licensed to The Apache Software Foundation, http://www.apache.org/
+2024-10-10T04:56:59.0362071Z 
+2024-10-10T04:56:59.0362345Z Benchmarking foo.localhost (be patient)
+2024-10-10T04:56:59.0362993Z 
+2024-10-10T04:56:59.0363003Z 
+2024-10-10T04:56:59.0363213Z Server Software:        
+2024-10-10T04:56:59.0363884Z Server Hostname:        foo.localhost
+2024-10-10T04:56:59.0367293Z Server Port:            80
+2024-10-10T04:56:59.0367704Z 
+2024-10-10T04:56:59.0367916Z Document Path:          /
+2024-10-10T04:56:59.0368807Z Document Length:        146 bytes
+2024-10-10T04:56:59.0369254Z 
+2024-10-10T04:56:59.0369392Z Concurrency Level:      10
+2024-10-10T04:56:59.0369802Z Time taken for tests:   0.209 seconds
+2024-10-10T04:56:59.0370188Z Complete requests:      1000
+2024-10-10T04:56:59.0370657Z Failed requests:        0
+2024-10-10T04:56:59.0371230Z Non-2xx responses:      1000
+2024-10-10T04:56:59.0371739Z Total transferred:      274000 bytes
+2024-10-10T04:56:59.0372130Z HTML transferred:       146000 bytes
+2024-10-10T04:56:59.0372587Z Requests per second:    4777.15 [#/sec] (mean)
+2024-10-10T04:56:59.0373153Z Time per request:       2.093 [ms] (mean)
+2024-10-10T04:56:59.0373701Z Time per request:       0.209 [ms] (mean, across all concurrent requests)
+2024-10-10T04:56:59.0374274Z Transfer rate:          1278.26 [Kbytes/sec] received
+2024-10-10T04:56:59.0374630Z 
+2024-10-10T04:56:59.0374822Z Connection Times (ms)
+2024-10-10T04:56:59.0375244Z               min  mean[+/-sd] median   max
+2024-10-10T04:56:59.0375687Z Connect:        0    0   0.2      0       1
+2024-10-10T04:56:59.0376175Z Processing:     0    2   1.2      2      14
+2024-10-10T04:56:59.0376606Z Waiting:        0    2   1.2      1      14
+2024-10-10T04:56:59.0377262Z Total:          1    2   1.2      2      14
+2024-10-10T04:56:59.0377831Z 
+2024-10-10T04:56:59.0378276Z Percentage of the requests served within a certain time (ms)
+2024-10-10T04:56:59.0379928Z   50%      2
+2024-10-10T04:56:59.0380481Z   66%      2
+2024-10-10T04:56:59.0381101Z   75%      2
+2024-10-10T04:56:59.0381426Z   80%      2
+2024-10-10T04:56:59.0381704Z   90%      3
+2024-10-10T04:56:59.0382071Z   95%      3
+2024-10-10T04:56:59.0382361Z   98%      4
+2024-10-10T04:56:59.0382639Z   99%     11
+2024-10-10T04:56:59.0383010Z  100%     14 (longest request)
+2024-10-10T04:56:59.0383482Z This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
+2024-10-10T04:56:59.0384201Z Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+2024-10-10T04:56:59.0384864Z Licensed to The Apache Software Foundation, http://www.apache.org/
+2024-10-10T04:56:59.0385279Z 
+2024-10-10T04:56:59.0385453Z Benchmarking bar.localhost (be patient)
+2024-10-10T04:56:59.0385811Z 
+2024-10-10T04:56:59.0385817Z 
+2024-10-10T04:56:59.0386014Z Server Software:        
+2024-10-10T04:56:59.0386566Z Server Hostname:        bar.localhost
+2024-10-10T04:56:59.0387248Z Server Port:            80
+2024-10-10T04:56:59.0387595Z 
+2024-10-10T04:56:59.0387910Z Document Path:          /
+2024-10-10T04:56:59.0388508Z Document Length:        146 bytes
+2024-10-10T04:56:59.0389354Z 
+2024-10-10T04:56:59.0389569Z Concurrency Level:      10
+2024-10-10T04:56:59.0390302Z Time taken for tests:   0.201 seconds
+2024-10-10T04:56:59.0391240Z Complete requests:      1000
+2024-10-10T04:56:59.0392953Z Failed requests:        0
+2024-10-10T04:56:59.0393938Z Non-2xx responses:      1000
+2024-10-10T04:56:59.0394610Z Total transferred:      274000 bytes
+2024-10-10T04:56:59.0395288Z HTML transferred:       146000 bytes
+2024-10-10T04:56:59.0396156Z Requests per second:    4975.03 [#/sec] (mean)
+2024-10-10T04:56:59.0396947Z Time per request:       2.010 [ms] (mean)
+2024-10-10T04:56:59.0397898Z Time per request:       0.201 [ms] (mean, across all concurrent requests)
+2024-10-10T04:56:59.0398997Z Transfer rate:          1331.21 [Kbytes/sec] received
+2024-10-10T04:56:59.0399569Z 
+2024-10-10T04:56:59.0399772Z Connection Times (ms)
+2024-10-10T04:56:59.0400454Z               min  mean[+/-sd] median   max
+2024-10-10T04:56:59.0401244Z Connect:        0    0   0.2      0       1
+2024-10-10T04:56:59.0401962Z Processing:     0    2   0.8      2       8
+2024-10-10T04:56:59.0402719Z Waiting:        0    2   0.8      1       8
+2024-10-10T04:56:59.0403519Z Total:          1    2   0.8      2       8
+2024-10-10T04:56:59.0404542Z WARNING: The median and mean for the waiting time are not within a normal deviation
+2024-10-10T04:56:59.0406026Z         These results are probably not that reliable.
+2024-10-10T04:56:59.0406766Z 
+2024-10-10T04:56:59.0407179Z Percentage of the requests served within a certain time (ms)
+2024-10-10T04:56:59.0408065Z   50%      2
+2024-10-10T04:56:59.0408739Z   66%      2
+2024-10-10T04:56:59.0409221Z   75%      2
+2024-10-10T04:56:59.0409738Z   80%      2
+2024-10-10T04:56:59.0410326Z   90%      3
+2024-10-10T04:56:59.0410758Z   95%      3
+2024-10-10T04:56:59.0411279Z   98%      4
+2024-10-10T04:56:59.0411834Z   99%      5
+2024-10-10T04:56:59.0412337Z  100%      8 (longest request)

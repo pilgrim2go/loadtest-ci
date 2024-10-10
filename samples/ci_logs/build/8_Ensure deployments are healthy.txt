@@ -1,0 +1,7 @@
+﻿2024-10-10T04:56:56.1551713Z ##[group]Run kubectl wait --for=condition=available --timeout=60s deployment/foo
+2024-10-10T04:56:56.1553158Z [36;1mkubectl wait --for=condition=available --timeout=60s deployment/foo[0m
+2024-10-10T04:56:56.1554644Z [36;1mkubectl wait --for=condition=available --timeout=60s deployment/bar[0m
+2024-10-10T04:56:56.1622413Z shell: /usr/bin/bash -e {0}
+2024-10-10T04:56:56.1622855Z ##[endgroup]
+2024-10-10T04:56:58.0349946Z deployment.apps/foo condition met
+2024-10-10T04:56:58.1872595Z deployment.apps/bar condition met
